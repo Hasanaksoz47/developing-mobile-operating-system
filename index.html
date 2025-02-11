@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Mobil Status Bar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 90vh;
+            background-image: url("https://cdn.pixabay.com/photo/2023/03/14/18/22/boho-7852928_640.jpg");
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .status-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            max-width: 750px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            padding: 10px;
+        }
+
+        .left,
+        .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-left: 15px;
+            margin-right: 25px;
+        }
+
+        .status-bar i {
+            font-size: 30px;
+            /* Iconları büyüttük */
+        }
+
+        .weather-section {
+            position: fixed;
+            width: 100%;
+            max-width: 750px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 90;
+            font-size: 20px;
+            /* Yazı boyutunu büyüttük */
+            top: 30px;
+            /* 30px yukarıdan boşluk ekledim */
+        }
+
+        .weather-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .weather-right {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 25px;
+        }
+
+        .perde {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: rgb(0, 0, 0);
+            display: none;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            font-size: 25px;
+            /* Font boyutunu büyüttük */
+            z-index: 500000;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .perde i {
+            font-size: 30px;
+            /* İkonları büyüttük */
+            margin: 10px;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 750px) and (min-width: 300px) {
+            .status-bar {
+                display: flex;
+            }
+
+            .weather-section {
+                top: 60px;
+            }
+
+            .weather-left i {
+                font-size: 30px;
+                /* İkon boyutunu büyüttük */
+            }
+        }
+
+        @media (min-width: 751px),
+        (max-width: 299px) {
+            .status-bar {
+                display: none;
+            }
+
+            .weather-section {
+                top: 80px;
+            }
+        }
+
+        /* Arama kutusu tasarımı */
+        .search-container {
+            position: fixed;
+            top: 30%;
+            /* Yüksekliği %50'ye ayarlıyoruz */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* Yatayda ve dikeyde ortalanacak */
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        /* Google ikonu */
+        .search-container i {
+            font-size: 24px;
+            color: #4285F4;
+            /* Google mavi rengi */
+            margin-right: 10px;
+        }
+
+        /* Arama kutusu */
+        .search-container input {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+        }
+
+        /* Mobil uyum için */
+        @media (max-width: 550px) {
+            .search-container {
+                width: 90%;
+                /* Arama kutusunun genişliğini %90 yapıyoruz */
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .search-container i {
+                font-size: 20px;
+            }
+
+            .search-container input {
+                font-size: 14px;
+                padding: 5px;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Yeni bölüm için sosyal ikonlar 40px üstünde */
+        .social-icons-top {
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Yatayda ortalanacak */
+            display: flex;
+            justify-content: center;
+            /* İkonları yatayda ortalayacak */
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            width: 90%;
+            max-width: 700px;
+            z-index: 200;
+        }
+
+        .social-icons-top i {
+            font-size: 5vw;
+            /* İkon boyutunu daha küçük yapıyoruz */
+            padding: 2vw;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border-radius: 10px;
+        }
+
+        /* İkon renkleri */
+        .social-icons-top i:nth-child(1) {
+            background-color: #3b5998;
+            /* Facebook */
+        }
+
+        .social-icons-top i:nth-child(2) {
+            background-color: #1da1f2;
+            /* Twitter */
+        }
+
+        .social-icons-top i:nth-child(3) {
+            background-color: #ff0000;
+            /* YouTube */
+        }
+
+        .social-icons-top i:nth-child(4) {
+            background-color: #25d366;
+            /* WhatsApp */
+        }
+
+        .social-icons-top i:nth-child(5) {
+            background-color: #c13584;
+            /* Instagram */
+        }
+
+        .social-icons-top i:nth-child(6) {
+            background-color: #0077b5;
+            /* LinkedIn */
+        }
+
+        .social-icons-top i:nth-child(7) {
+            background-color: #ffcc00;
+            /* Phone */
+        }
+
+        .social-icons-top i:nth-child(8) {
+            background-color: #0084ff;
+            /* Message */
+        }
+
+        .social-icons-top i:nth-child(9) {
+            background-color: #00cc44;
+            /* Cloud */
+        }
+
+        .social-icons-top i:nth-child(10) {
+            background-color: #ff6f00;
+            /* Camera */
+        }
+
+        .social-icons-top i:nth-child(11) {
+            background-color: #8e44ad;
+            /* Images */
+        }
+
+        .social-icons-top i:nth-child(12) {
+            background-color: #1e7e34;
+            /* Microphone */
+        }
+
+        .social-icons-top i:hover {
+            transform: scale(1.2);
+        }
+
+        /* İkonlar ekran genişliğine göre uyumlu */
+        @media (max-width: 600px) {
+            .social-icons-top i {
+                font-size: 6vw;
+                /* Küçük ekranlar için ikon boyutunu daha da küçültüyoruz */
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Yeni stil: Sosyal ikonlar */
+        .social-icons {
+            position: fixed;
+            bottom: 5%;
+            left: 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 700px;
+            z-index: 200;
+            gap: 5%;
+        }
+
+        .social-icons i {
+            font-size: 8vw;
+            /* Font büyüklüğünü yüzdelik olarak ayarladık */
+            /* Aralarındaki boşluğu yüzde ile ayarladık */
+            padding: 2vw;
+            /* İçerik padding'ini yüzdelik olarak ayarladık */
+            cursor: pointer;
+            transition: transform 0.3s;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .social-icons i:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="perde" id="perde">
+        <!-- 12 İkon ekledik -->
+        <i class="fa-solid fa-bell"></i>
+        <i class="fa-brands fa-bluetooth-b"></i>
+        <i class="fa-solid fa-circle-half-stroke"></i>
+        <i class="fa-solid fa-wifi"></i>
+        <i class="fa-solid fa-plane-up"></i>
+    </div>
+
+    <div class="status-bar" id="statusBar">
+        <div class="left">
+            <span id="clock">00:00</span>
+            <i class="fa-solid fa-bell"></i>
+            <i class="fa-solid fa-bell"></i>
+            <i class="fa-solid fa-bell"></i>
+        </div>
+        <div class="right">
+            <i class="fa-solid fa-plane-up"></i>
+            <i class="fa-solid fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- Weather Section -->
+    <div class="weather-section">
+        <div class="weather-left">
+            <i class="fa-solid fa-cloud"></i>
+            <i class="fa-solid fa-location-dot"></i>
+            <span>İstanbul</span>
+        </div>
+        <div class="weather-right">
+            18°C
+        </div>
+    </div>
+
+    <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search...">
+    </div>
+
+
+
+
+
+
+
+    <!-- Yeni eklenen sosyal ikonlar üst kısmı -->
+    <div class="social-icons-top">
+        <i class="fa-solid fa-phone"></i> <!-- Phone icon -->
+        <i class="fa-solid fa-message"></i> <!-- Message icon -->
+        <i class="fa-brands fa-whatsapp"></i> <!-- WhatsApp icon -->
+        <i class="fa-solid fa-camera"></i> <!-- Camera icon -->
+        <i class="fa-solid fa-images"></i> <!-- Images icon -->
+        <i class="fa-solid fa-cloud"></i> <!-- Cloud icon -->
+        <i class="fa-solid fa-microphone"></i> <!-- Microphone icon -->
+        <i class="fa-solid fa-music"></i> <!-- Music icon -->
+        <i class="fa-solid fa-phone"></i> <!-- Phone icon -->
+        <i class="fa-solid fa-message"></i> <!-- Message icon -->
+        <i class="fa-brands fa-whatsapp"></i> <!-- WhatsApp icon -->
+        <i class="fa-solid fa-camera"></i> <!-- Camera icon -->
+        <i class="fa-solid fa-images"></i> <!-- Images icon -->
+        <i class="fa-solid fa-cloud"></i> <!-- Cloud icon -->
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="social-icons">
+        <i class="fa-solid fa-phone"></i>
+        <i class="fa-solid fa-message"></i>
+        <i class="fa-brands fa-whatsapp"></i>
+        <i class="fa-solid fa-camera"></i>
+        <i class="fa-solid fa-images"></i>
+    </div>
+
+
+
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        let startY;
+        let isPerdeVisible = false;
+
+        window.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].pageY;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            const currentY = e.touches[0].pageY;
+            const deltaY = currentY - startY;
+
+            // Perdeyi açma
+            if (deltaY > 50 && !isPerdeVisible) {
+                document.getElementById('perde').style.display = 'flex';
+                document.getElementById('statusBar').style.display = 'none'; // Status bar gizlenir
+                isPerdeVisible = true;
+            }
+            // Perdeyi kapama
+            else if (deltaY < -50 && isPerdeVisible) {
+                document.getElementById('perde').style.display = 'none';
+                document.getElementById('statusBar').style.display = 'flex'; // Status bar görünür
+                isPerdeVisible = false;
+            }
+        });
+
+        window.addEventListener('resize', function () {
+            const width = window.innerWidth;
+
+            // Ekran boyutu 300px'den küçükse veya 700px'den büyükse, sayfayı gizle
+            if (width < 300 || width > 700) {
+                document.body.style.display = 'none';
+            } else {
+                document.body.style.display = 'block';
+            }
+        });
+
+        // Sayfa yüklendiğinde de kontrol edilmesi için
+        window.dispatchEvent(new Event('resize'));
+    </script>
+</body>
+
+</html>
