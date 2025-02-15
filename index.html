@@ -15,11 +15,12 @@
             justify-content: center;
             align-items: center;
             height: 90vh;
-            background-image: url("https://cdn.pixabay.com/photo/2023/03/14/18/22/boho-7852928_640.jpg");
+            background-image: url("https://cdn.pixabay.com/animation/2023/07/13/14/22/14-22-36-485_256.gif");
             font-family: Arial, sans-serif;
             overflow-x: hidden;
         }
 
+        /* Genel stil ve düzen */
         .status-bar {
             position: fixed;
             top: 0;
@@ -30,6 +31,10 @@
             align-items: center;
             z-index: 100;
             padding: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            /* Hafif şeffaf arka plan */
+            color: white;
+            /* Metin ve ikonlar beyaz */
         }
 
         .left,
@@ -42,10 +47,38 @@
         }
 
         .status-bar i {
-            font-size: 30px;
-            /* Iconları büyüttük */
+            font-size: 20px;
+            /* İkon boyutunu ayarladık */
+            color: #fff;
+            /* İkon renklerini beyaz yaptık */
         }
 
+        /* Saatin rengi */
+        #clock {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            /* Beyaz renk */
+        }
+
+        /* Bildirim ikonlarının stili */
+        .status-bar i.fa-bell {
+            color: #ffcc00;
+            /* Sarı renk bildirimler için */
+        }
+
+        /* Şarj simgesinin ve uçak modunun rengi */
+        .status-bar i.fa-plane-up {
+            color: #dcdcdc;
+            /* Gri renk uçak moduna */
+        }
+
+        .status-bar i.fa-battery-full {
+            color: #4caf50;
+            /* Şarj dolu simgesi için yeşil */
+        }
+
+        /* Weather Section */
         .weather-section {
             position: fixed;
             width: 100%;
@@ -55,24 +88,48 @@
             align-items: center;
             padding: 15px;
             background-color: rgba(255, 255, 255, 0.7);
+            /* Hafif beyaz şeffaf arka plan */
             z-index: 90;
             font-size: 20px;
-            /* Yazı boyutunu büyüttük */
             top: 30px;
             /* 30px yukarıdan boşluk ekledim */
         }
 
+        /* Sol taraf - Hava durumu simgeleri */
         .weather-left {
             display: flex;
             align-items: center;
             gap: 15px;
         }
 
+        .weather-left i {
+            color: #007BFF;
+            /* Mavi renk simgeler için */
+        }
+
+        /* Sağ taraf - sıcaklık */
         .weather-right {
             font-size: 24px;
             font-weight: bold;
             margin-right: 25px;
+            color: #333;
+            /* Sıcaklık yazısı için koyu gri */
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         .perde {
             position: fixed;
@@ -80,15 +137,16 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Arka plan rengini koyu yapalım */
+            color: white;
+            /* Yazı rengini beyaz yapalım */
             display: none;
             justify-content: flex-start;
             align-items: flex-start;
             flex-direction: row;
             flex-wrap: wrap;
             font-size: 25px;
-            /* Font boyutunu büyüttük */
             z-index: 500000;
             gap: 15px;
             padding: 15px;
@@ -96,10 +154,48 @@
 
         .perde i {
             font-size: 30px;
-            /* İkonları büyüttük */
             margin: 10px;
             border-radius: 15px;
+            padding: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+        .perde i:hover {
+            background-color: #4CAF50;
+            /* Hover durumunda yeşil renk */
+            color: white;
+            /* İkon rengi beyaz olacak */
+        }
+
+        /* Telefon uyumlu tasarım */
+        @media (max-width: 750px) and (min-width: 300px) {
+            .perde {
+                background-color: rgba(0, 0, 0, 0.8);
+                /* Arka plan rengini daha koyu yapalım */
+            }
+
+            .perde i {
+                font-size: 35px;
+                /* İkon boyutunu artırıyoruz */
+                background-color: rgba(255, 255, 255, 0.3);
+                /* İkonların arka plan rengini açalım */
+            }
+        }
+
+        /* Masaüstü ve tablet için tasarım */
+        @media (min-width: 751px),
+        (max-width: 299px) {
+            .perde {
+                background-color: rgba(0, 0, 0, 0.5);
+                /* Masaüstü ekranında daha hafif bir arka plan */
+            }
+
+            .perde i {
+                background-color: rgba(255, 255, 255, 0.4);
+                /* İkon arka planını açalım */
+            }
+        }
+
 
         @media (max-width: 750px) and (min-width: 300px) {
             .status-bar {
@@ -126,6 +222,15 @@
                 top: 80px;
             }
         }
+
+
+
+
+
+
+
+
+
 
         /* Arama kutusu tasarımı */
         .search-container {
@@ -195,11 +300,10 @@
 
 
 
-
         /* Yeni bölüm için sosyal ikonlar 40px üstünde */
         .social-icons-top {
             position: fixed;
-            top: 60%;
+            top: 50%;
             left: 50%;
             transform: translateX(-50%);
             /* Yatayda ortalanacak */
@@ -207,96 +311,73 @@
             justify-content: center;
             /* İkonları yatayda ortalayacak */
             align-items: center;
-            gap: 10px;
+            gap: 20px;
             flex-wrap: wrap;
-            width: 90%;
+            width: 98%;
             max-width: 700px;
             z-index: 200;
         }
 
         .social-icons-top i {
-            font-size: 5vw;
+            font-size: 40px;
             /* İkon boyutunu daha küçük yapıyoruz */
-            padding: 2vw;
+            padding: 3vw;
             cursor: pointer;
             transition: transform 0.3s;
             border-radius: 10px;
+            color: white;
         }
 
         /* İkon renkleri */
         .social-icons-top i:nth-child(1) {
-            background-color: #3b5998;
-            /* Facebook */
+            background-color: #d44638;
+            /* E-posta */
         }
 
         .social-icons-top i:nth-child(2) {
-            background-color: #1da1f2;
-            /* Twitter */
-        }
-
-        .social-icons-top i:nth-child(3) {
-            background-color: #ff0000;
-            /* YouTube */
-        }
-
-        .social-icons-top i:nth-child(4) {
-            background-color: #25d366;
-            /* WhatsApp */
-        }
-
-        .social-icons-top i:nth-child(5) {
             background-color: #c13584;
             /* Instagram */
         }
 
+        .social-icons-top i:nth-child(3) {
+            background-color: #1877F2;
+            /* Facebook */
+        }
+
+        .social-icons-top i:nth-child(4) {
+            background-color: #1da1f2;
+            /* Twitter (X) */
+        }
+
+        .social-icons-top i:nth-child(5) {
+            background-color: #ff6f00;
+            /* Müzik */
+        }
+
         .social-icons-top i:nth-child(6) {
-            background-color: #0077b5;
-            /* LinkedIn */
+            background-color: #f00;
+            /* Video */
         }
 
         .social-icons-top i:nth-child(7) {
-            background-color: #ffcc00;
-            /* Phone */
+            background-color: #00a884;
+            /* Bulut Depolama */
         }
 
         .social-icons-top i:nth-child(8) {
-            background-color: #0084ff;
-            /* Message */
+            background-color: #1e7e34;
+            /* Sesli Notlar */
         }
 
         .social-icons-top i:nth-child(9) {
-            background-color: #00cc44;
-            /* Cloud */
+            background-color: #ffcc00;
+            /* Harita */
         }
 
         .social-icons-top i:nth-child(10) {
-            background-color: #ff6f00;
-            /* Camera */
+            background-color: #4285f4;
+            /* Hesap Makinesi */
         }
-
-        .social-icons-top i:nth-child(11) {
-            background-color: #8e44ad;
-            /* Images */
-        }
-
-        .social-icons-top i:nth-child(12) {
-            background-color: #1e7e34;
-            /* Microphone */
-        }
-
-        .social-icons-top i:hover {
-            transform: scale(1.2);
-        }
-
-        /* İkonlar ekran genişliğine göre uyumlu */
-        @media (max-width: 600px) {
-            .social-icons-top i {
-                font-size: 6vw;
-                /* Küçük ekranlar için ikon boyutunu daha da küçültüyoruz */
-            }
-        }
-
-
 
 
 
@@ -330,18 +411,41 @@
         .social-icons i {
             font-size: 8vw;
             /* Font büyüklüğünü yüzdelik olarak ayarladık */
-            /* Aralarındaki boşluğu yüzde ile ayarladık */
-            padding: 2vw;
+            padding: 3vw;
             /* İçerik padding'ini yüzdelik olarak ayarladık */
             cursor: pointer;
             transition: transform 0.3s;
             background-color: white;
             border-radius: 10px;
+            color: white;
         }
 
-        .social-icons i:hover {
-            transform: scale(1.2);
+        /* İkon renkleri */
+        .social-icons i:nth-child(1) {
+            background-color: #3b5998;
+            /* Facebook */
         }
+
+        .social-icons i:nth-child(2) {
+            background-color: #1da1f2;
+            /* Twitter (X) */
+        }
+
+        .social-icons i:nth-child(3) {
+            background-color: #25d366;
+            /* WhatsApp */
+        }
+
+        .social-icons i:nth-child(4) {
+            background-color: #ff6f00;
+            /* Camera */
+        }
+
+        .social-icons i:nth-child(5) {
+            background-color: #c13584;
+            /* Instagram */
+        }
+
     </style>
 </head>
 
@@ -354,6 +458,9 @@
         <i class="fa-solid fa-wifi"></i>
         <i class="fa-solid fa-plane-up"></i>
     </div>
+
+
+
 
     <div class="status-bar" id="statusBar">
         <div class="left">
@@ -380,8 +487,12 @@
         </div>
     </div>
 
+
+
+
+
     <div class="search-container">
-        <i class="fa-solid fa-magnifying-glass"></i>
+        <i class="fa-brands fa-google"></i> <!-- Google icon -->
         <input type="text" placeholder="Search...">
     </div>
 
@@ -390,24 +501,20 @@
 
 
 
-
     <!-- Yeni eklenen sosyal ikonlar üst kısmı -->
     <div class="social-icons-top">
-        <i class="fa-solid fa-phone"></i> <!-- Phone icon -->
-        <i class="fa-solid fa-message"></i> <!-- Message icon -->
-        <i class="fa-brands fa-whatsapp"></i> <!-- WhatsApp icon -->
-        <i class="fa-solid fa-camera"></i> <!-- Camera icon -->
-        <i class="fa-solid fa-images"></i> <!-- Images icon -->
-        <i class="fa-solid fa-cloud"></i> <!-- Cloud icon -->
-        <i class="fa-solid fa-microphone"></i> <!-- Microphone icon -->
-        <i class="fa-solid fa-music"></i> <!-- Music icon -->
-        <i class="fa-solid fa-phone"></i> <!-- Phone icon -->
-        <i class="fa-solid fa-message"></i> <!-- Message icon -->
-        <i class="fa-brands fa-whatsapp"></i> <!-- WhatsApp icon -->
-        <i class="fa-solid fa-camera"></i> <!-- Camera icon -->
-        <i class="fa-solid fa-images"></i> <!-- Images icon -->
-        <i class="fa-solid fa-cloud"></i> <!-- Cloud icon -->
+        <i class="fa-solid fa-envelope"></i> <!-- E-posta -->
+        <i class="fa-brands fa-instagram"></i> <!-- Instagram -->
+        <i class="fa-brands fa-facebook"></i> <!-- Facebook -->
+        <i class="fa-brands fa-x-twitter"></i> <!-- Twitter (X) -->
+        <i class="fa-solid fa-music"></i> <!-- Müzik -->
+        <i class="fa-solid fa-video"></i> <!-- Video -->
+        <i class="fa-solid fa-cloud"></i> <!-- Bulut Depolama -->
+        <i class="fa-solid fa-microphone"></i> <!-- Sesli Notlar -->
+        <i class="fa-solid fa-map-marker-alt"></i> <!-- Harita -->
+        <i class="fa-solid fa-calculator"></i> <!-- Hesap Makinesi -->
     </div>
+
 
 
 
